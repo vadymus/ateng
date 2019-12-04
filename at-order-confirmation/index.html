@@ -33,17 +33,28 @@
         var form = document.querySelector("#orderForm");
         if (form) {
 
-            adobe.target.trackEvent({ 
+            adobe.target.getOffer({ 
                 "mbox": "orderConfirmation", 
                 "params": { 
                     "orderId": "72346578126",
                     "orderTotal": "149.00",
                     "productPurchasedId": "54D78G,G876GH,765FHF" 
+                },
+                "success": function(offer) {           
+                    adobe.target.applyOffer( {  
+                       "mbox": "orderConfirmation", 
+                       "offer": offer
+                    } ); 
+                    console.log('Offer', offer); 
+                    document.querySelector("#formStatus").innerHTML+=offer
+                },   
+                "error": function(status, error) {           
+                    console.log('Error', status, error); 
                 } 
             });
 
             form.reset();
-            alert("Order Submitted.")
+            document.querySelector("#formStatus").innerHTML="Order Submitted.<br>"
         }        
 
         return false;
@@ -101,6 +112,8 @@
                 <h2>Order Preview</h2>
 
                 <form id="orderForm" onsubmit="return submitOrder()">
+
+                    <div class="form-group" id="formStatus"></div>
 
                     <div class="form-group"> <!-- Full Name -->
                         <label for="full_name_id" class="control-label">Full Name</label>
