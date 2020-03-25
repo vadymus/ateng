@@ -25,8 +25,11 @@
     <![endif]-->
 
     <script>
-    targetPageParams = function(){
+    window.targetPageParams = function(){
         return {auth:'0', customer:'new'};
+    }
+    window.targetGlobalSettings = {
+        "cookieDomain": "vadymus.github.io"
     }
 
     submitOrder = function (argument) {
