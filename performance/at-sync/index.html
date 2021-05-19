@@ -7,24 +7,27 @@
         <meta name="author" content="" />
         <title>Adobe Target - Performance Test</title>
         <link href="../css/styles.css" rel="stylesheet" />
+        <script>
+            if (window.location.href.indexOf("prehiding=false")==-1) {
+               window.targetGlobalSettings = {"bodyHidingEnabled": false}
+            }
+        </script>
         <script src="//assets.adobedtm.com/164e49a27fff/5b0d33ca78ce/launch-39eb5d49edd5-development.min.js"></script>
     </head>
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="../no-at">Adobe Target Performance Test</a>
+                <a class="navbar-brand" href="../no-at">No AT</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../no-at">
-                                No AT
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item active"><a class="nav-link" href="../at-sync">AT Sync</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../at-sync">AT Sync</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../at-sync?prehiding=false">AT Sync <sup>No-Hide</sup></a></li>
+                        <li class="nav-item"><a class="nav-link" href="../at-sync?mboxDisable=1">AT Sync <sup>No-Call</sup></a></li>
                         <li class="nav-item"><a class="nav-link" href="../at-async">AT Async</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../at-async?prehiding=false">AT Async <sup>No-Hide</sup></a></li>
+                        <li class="nav-item"><a class="nav-link" href="../at-async?mboxDisable=1">AT Async <sup>No-Call</sup></a></li>
                     </ul>
                 </div>
             </div>
