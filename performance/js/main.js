@@ -3,7 +3,7 @@ function measureAssetLoadTime(title, url) {
     const resourceEntries = performance.getEntriesByType('resource');
 
     // Filter entries by the specified URL
-    const matchingEntries = resourceEntries.filter(entry => entry.name === url);
+    const matchingEntries = resourceEntries.filter(entry => entry.name.indexOf(url) !== -1 );
 
     if (matchingEntries.length > 0) {
         const entry = matchingEntries[0];
@@ -18,7 +18,7 @@ function measureAssetLoadTime(title, url) {
 function displayResult(val){
     const el = document.querySelector("body > header > div > div > div > p");
     if(el){
-        if(el.childrenlength===0){ el.innerHTML === ""; }//empty
+        if(el.children.length === 0){ el.innerHTML === ""; }//empty
         $(el).append("<div>"+val+"</div>");
     }
 }
@@ -26,13 +26,15 @@ function displayResult(val){
 
 window.addEventListener("load", (event) => {
     console.log("page is fully loaded");
-    if(window.location.href.indexOf("/ateng/performance/at-")!==-1){
-        measureAssetLoadTime('Tag Lib', 'https://assets.adobedtm.com/164e49a27fff/5b0d33ca78ce/launch-39eb5d49edd5-development.min.js');
-        measureAssetLoadTime('Delivery API', 'https://adobeinternalags300.tt.omtrdc.net/rest/v1/delivery');
-    }else if(window.location.href.indexOf("/ateng/performance/websdk-")!==-1){
-        measureAssetLoadTime('Tag Lib', 'https://assets.adobedtm.com/164e49a27fff/f9672c0a4e61/launch-c1f237bf3c43-development.min.js');
-        measureAssetLoadTime('Edge API', 'https://edge.adobedc.net/ee/va6/v1/interact');
-    }
+    setTimeout(()=>{
+        if(window.location.href.indexOf("/ateng/performance/at-")!==-1){
+            measureAssetLoadTime('Tag Lib', 'https://assets.adobedtm.com/164e49a27fff/5b0d33ca78ce/launch-39eb5d49edd5-development.min.js');
+            measureAssetLoadTime('Delivery API', '.tt.omtrdc.net');
+        }else if(window.location.href.indexOf("/ateng/performance/websdk-")!==-1){
+            measureAssetLoadTime('Tag Lib', 'https://assets.adobedtm.com/164e49a27fff/f9672c0a4e61/launch-c1f237bf3c43-development.min.js');
+            measureAssetLoadTime('Edge API', 'https://edge.adobedc.net/ee/va6/v1/interact');
+        }
+    },3000);
 });
 
 
