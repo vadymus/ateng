@@ -12,11 +12,11 @@
             if (window.location.href.indexOf("prehiding=false")!==-1) {
                window.targetGlobalSettings = {"bodyHidingEnabled": false}
                document.addEventListener("DOMContentLoaded", (event) => {
-                  document.querySelector("#navbarResponsive > ul > li:nth-child(2) > a").classList.remove("active");
+                  document.querySelector("#navbarResponsive > ul > li:nth-child(1) > a").classList.remove("active");
                });
             }else{
                document.addEventListener("DOMContentLoaded", (event) => {
-                  document.querySelector("#navbarResponsive > ul > li:nth-child(1) > a").classList.remove("active");
+                  document.querySelector("#navbarResponsive > ul > li:nth-child(2) > a").classList.remove("active");
                });
             }
         </script>
