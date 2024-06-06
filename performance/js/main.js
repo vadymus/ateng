@@ -18,7 +18,7 @@ function measureAssetLoadTime(title, url) {
 function displayResult(val){
     const el = document.querySelector("body > header > div > div > div > p");
     if(el){
-        if(el.children.length === 0){ el.innerHTML === ""; }//empty
+        if(el.children.length === 0){ el.innerHTML = ""; }//empty
         $(el).append("<div>"+val+"</div>");
     }
 }

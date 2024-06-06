@@ -10006,3 +10006,8 @@ h3 {
     border-color: #dee2e6;
   }
 }
+
+
+p.lead div{
+  color: yellow;
+}
