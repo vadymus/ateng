@@ -11,9 +11,13 @@
             if (window.location.href.indexOf("prehiding=false")===-1) {
                //prehiding snippet for Adobe Target with asynchronous Launch deployment
                 (function(g,b,d,f){(function(a,c,d){if(a){var e=b.createElement("style");e.id=c;e.innerHTML=d;a.appendChild(e)}})(b.getElementsByTagName("head")[0],"at-body-style",d);setTimeout(function(){var a=b.getElementsByTagName("head")[0];if(a){var c=b.getElementById("at-body-style");c&&a.removeChild(c)}},f)})(window,document,"body {opacity: 0 !important}",3E3); 
-                document.querySelector("#navbarResponsive > ul > li:nth-child(4) > a").classList.remove("active");
+                document.addEventListener("DOMContentLoaded", (event) => {
+                  document.querySelector("#navbarResponsive > ul > li:nth-child(4) > a").classList.remove("active");
+               });
             }else{
-                document.querySelector("#navbarResponsive > ul > li:nth-child(3) > a").classList.remove("active");
+                document.addEventListener("DOMContentLoaded", (event) => {
+                  document.querySelector("#navbarResponsive > ul > li:nth-child(3) > a").classList.remove("active");
+               });
             }
         </script>
         <script src="//assets.adobedtm.com/164e49a27fff/5b0d33ca78ce/launch-39eb5d49edd5-development.min.js" async></script>
@@ -44,7 +48,7 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
-                        <h1 class="display-4 text-white mt-5 mb-2">Adobe Target is Loaded Asynchronously</h1>
+                        <h1 class="display-4 text-white mt-5 mb-2">Adobe Target at.js is Loaded Asynchronously</h1>
                         <p class="lead mb-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus ab labore provident mollitia. Id assumenda voluptate earum corporis facere quibusdam quisquam iste ipsa cumque unde nisi, totam quas ipsam.</p>
                     </div>
                 </div>
