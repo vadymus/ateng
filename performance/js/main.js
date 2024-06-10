@@ -60,8 +60,8 @@ function displayResults(results){
             if(result.title==="Edge Server API") totalApis.push(result.time);
         });
         $(el).html(
-            "Tag: "+totalTags.join("+")+" = "  calculateMedian(totalTags) +
-            "API: "+totalApis.join("+")+" = "  calculateMedian(totalApis) 
+            "Tag: "+totalTags.join("+")+" = " + calculateMedian(totalTags) +
+            "API: "+totalApis.join("+")+" = " + calculateMedian(totalApis) 
             );
     }
 }
