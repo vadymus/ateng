@@ -1,42 +1,98 @@
-function measureAssetLoadTime(title, url) {
-    // Get all resource performance entries
-    const resourceEntries = performance.getEntriesByType('resource');
-
-    // Filter entries by the specified URL
-    const matchingEntries = resourceEntries.filter(entry => entry.name.indexOf(url) !== -1 );
-
-    if (matchingEntries.length > 0) {
-        const entry = matchingEntries[0];
-        const totalTime = entry.responseEnd - entry.startTime;
-        console.log(`Total time to load ${title}: ${totalTime.toFixed(2)} ms`);
-        displayResult(title+": "+(totalTime.toFixed(2))+" ms")
-    } else {
-        console.log(`No performance entry found for URL: ${url}`);
-    }
+function startPerformanceTest(){
+    takeMeasurement();
 }
 
-function displayResult(val){
+function clearPerformanceTest(){
+    clearObject('myPerformanceTest');
+}
+
+function takeMeasurement() {
+    
+    let resources = [];
+
+    if(typeof adobe === "object" && typeof adobe.target === "object")
+        resources = [
+            {'Tag Lib': '/launch-39eb5d49edd5-development.min.js'},
+            {'Delivery API', '.tt.omtrdc.net'}
+        ];
+    else if(typeof alloy === "function")
+        resources = [
+            {'Tag Lib': '/launch-c1f237bf3c43-development.min.js'},
+            {'Delivery API', 'https://edge.adobedc.net/ee/va6/v1/interact'}
+        ];
+
+    resources.forEach((resource)=>{
+        const resourceEntries = performance.getEntriesByType('resource');// Get all resource performance entries        
+        const matchingEntries = resourceEntries.filter(entry => entry.name.indexOf(url) !== -1 );// Filter entries by the specified URL
+        if (matchingEntries.length > 0) {
+            const entry = matchingEntries[0];
+            const totalTime = entry.responseEnd - entry.startTime;
+            console.log(`Total time to load ${title}: ${totalTime.toFixed(2)} ms`);
+            saveAndDisplayResult({title: title, time: totalTime.toFixed(2)})
+        } else {
+            console.log(`No performance entry found for URL: ${url}`);
+        }
+    });
+
+}
+
+function saveAndDisplayResult(val){
+
+    const oldResults = readObject('myPerformanceTest');
+    const newResults = (oldResults) ? oldResults.push(val) : [val];
+
+    storeObject('myPerformanceTest', newResults);
+
     const el = document.querySelector("body > header > div > div > div > p");
     if(el){
         if(el.children.length === 0){ el.innerHTML = ""; }//empty
-        $(el).append("<div>"+val+"</div>");
+        $(el).append("<div>"+JSON.parse(newResults)+"</div>");
     }
 }
 
-
-window.addEventListener("load", (event) => {
-    console.log("page is fully loaded");
-    setTimeout(()=>{
-        if(window.location.href.indexOf("/ateng/performance/at-")!==-1){
-            measureAssetLoadTime('Tag Lib', 'https://assets.adobedtm.com/164e49a27fff/5b0d33ca78ce/launch-39eb5d49edd5-development.min.js');
-            measureAssetLoadTime('Delivery API', '.tt.omtrdc.net');
-        }else if(window.location.href.indexOf("/ateng/performance/websdk-")!==-1){
-            measureAssetLoadTime('Tag Lib', 'https://assets.adobedtm.com/164e49a27fff/f9672c0a4e61/launch-c1f237bf3c43-development.min.js');
-            measureAssetLoadTime('Edge API', 'https://edge.adobedc.net/ee/va6/v1/interact');
+function storeObject(key, obj) {
+    if (typeof obj === "object") {
+        const jsonString = JSON.stringify(obj);
+        localStorage.setItem(key, jsonString);
+        console.log(`Object stored under key: ${key}`);
+    } else {
+        console.error("The value to store is not an object.");
+    }
+}
+function readObject(key) {
+    const jsonString = localStorage.getItem(key);
+    if (jsonString) {
+        try {
+            const obj = JSON.parse(jsonString);
+            console.log(`Object retrieved from key: ${key}`, obj);
+            return obj;
+        } catch (e) {
+            console.error("Error parsing JSON string from local storage.", e);
         }
-    },3000);
-});
+    } else {
+        console.log(`No object found under key: ${key}`);
+    }
+    return null;
+}
+function clearObject(key) {
+    if (localStorage.getItem(key) !== null) {
+        localStorage.removeItem(key);
+        console.log(`Object under key: ${key} has been cleared.`);
+    } else {
+        console.log(`No object found under key: ${key} to clear.`);
+    }
+}
 
+(() => {
 
+    setTimeout(()=>{
+        const results = readObject('myPerformanceTest')
 
+        const el = document.querySelector("body > header > div > div > div > p");
+        if(el){
+            if(el.children.length === 0){ el.innerHTML = ""; }//empty
+            $(el).append("<div>"+JSON.parse(newResults)+"</div>");
+        }
+    },2000);
 
+})();
