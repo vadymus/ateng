@@ -39,7 +39,7 @@ function takeMeasurement() {
 function saveAndDisplayResult(val){
 
     const oldResults = readObject('myPerformanceTest');
-    const newResults = (oldResults) ? oldResults.push(val) : [val];
+    const newResults = (oldResults) ? oldResults.concat([val]) : [val];
 
     console.log(`new result to be stored: ${newResults}`);
     storeObject('myPerformanceTest', newResults);
