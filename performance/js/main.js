@@ -61,8 +61,8 @@ function displayResults(results){
             if(result.title==="Edge Server API") totalApis.push(parseFloat(result.time));
         });
         $(el).html(
-            "Tag: "+totalTags.join("+")+" = <strong>" + calculateMedian(totalTags).toFixed(2)+"</strong>" +
-            "<br/><br/>API: "+totalApis.join("+")+" = <strong>" + calculateMedian(totalApis).toFixed(2) +"</strong>"
+            "Tag: "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateMedian(totalTags).toFixed(2)+"</span>" +
+            "<br/><br/>API: "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateMedian(totalApis).toFixed(2) +"</span>"
             );
     }
 }
