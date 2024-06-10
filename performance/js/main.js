@@ -52,9 +52,9 @@ function displayResults(results){
     if(el && typeof results === "object"){
         let html = '';
         results.forEach((result)=>{
-            html += `<div>${result.title}: ${result.time} ms</div>`;
+            html += `<td>${result.title}: ${result.time} ms</td>`;
         });
-        $(el).html(html);
+        $(el).html("<table class='table table-sm'><tr>"+html+"</tr></table>");
     }
 }
 
