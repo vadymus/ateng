@@ -49,7 +49,7 @@ function saveAndDisplayResult(val){
 
 function displayResults(results){
     const el = document.querySelector("body > header > div > div > div > p");
-    if(el && typeof results === "object"){
+    if(el && results && typeof results === "object"){
         //let html = '';
         let totalTags = [];
         let totalApis = [];
