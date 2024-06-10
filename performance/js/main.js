@@ -27,7 +27,7 @@ function takeMeasurement() {
         if (matchingEntries.length > 0) {
             const entry = matchingEntries[0];
             const totalTime = entry.responseEnd - entry.startTime;
-            console.log(`Total time to load ${title}: ${totalTime.toFixed(2)} ms`);
+            console.log(`Total time to load ${resource.title}: ${totalTime.toFixed(2)} ms`);
             saveAndDisplayResult({title: resource.title, time: totalTime.toFixed(2)})
         } else {
             console.log(`No performance entry found for URL: ${url}`);
@@ -44,7 +44,7 @@ function saveAndDisplayResult(val){
     storeObject('myPerformanceTest', newResults);
 
     const el = document.querySelector("body > header > div > div > div > p");
-    if(el){
+    if(el && typeof newResults === "object"){
         if(el.children.length === 0){ el.innerHTML = ""; }//empty
         $(el).append("<div>"+JSON.parse(newResults)+"</div>");
     }
