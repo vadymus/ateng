@@ -1,10 +1,15 @@
+const PERF_STORAGE_NAME = "myPerformanceTest";
+const TAG_LIB_TITLE = "Tag Lib";
+const TARGET_API_TITLE = "Delivery API";
+const EDGE_API_TITLE = "Edge Server API";
+
 function startPerformanceTest(){
     takeMeasurement();
     window.location.reload();
 }
 
 function clearPerformanceTest(){
-    clearObject('myPerformanceTest');
+    clearObject(PERF_STORAGE_NAME);
 }
 
 function takeMeasurement() {
@@ -13,13 +18,13 @@ function takeMeasurement() {
 
     if(typeof adobe === "object" && typeof adobe.target === "object")
         resources = [
-            {title: 'Tag Lib', url: '/launch-39eb5d49edd5-development.min.js'},
-            {title: 'Delivery API', url: '.tt.omtrdc.net'}
+            {title: TAG_LIB_TITLE, url: '/launch-39eb5d49edd5-development.min.js'},
+            {title: TARGET_API_TITLE, url: '.tt.omtrdc.net'}
         ];
     else if(typeof alloy === "function")
         resources = [
-            {title: 'Tag Lib', url: '/launch-c1f237bf3c43-development.min.js'},
-            {title: 'Edge Server API', url: 'https://edge.adobedc.net/ee/va6/v1/interact'}
+            {title: TAG_LIB_TITLE, url: '/launch-c1f237bf3c43-development.min.js'},
+            {title: EDGE_API_TITLE, url: 'https://edge.adobedc.net/ee/va6/v1/interact'}
         ];
 
     resources.forEach((resource)=>{
@@ -39,11 +44,11 @@ function takeMeasurement() {
 
 function saveAndDisplayResult(val){
 
-    const oldResults = readObject('myPerformanceTest');
+    const oldResults = readObject(PERF_STORAGE_NAME);
     const newResults = (oldResults) ? oldResults.concat([val]) : [val];
 
     console.log(`new result to be stored: ${newResults}`);
-    storeObject('myPerformanceTest', newResults);
+    storeObject(PERF_STORAGE_NAME, newResults);
 
     displayResults(newResults);
 }
@@ -56,13 +61,13 @@ function displayResults(results){
         let totalApis = [];
         results.forEach((result)=>{
             //html += `<td>${result.title}: ${result.time} ms</td>`;
-            if(result.title==="Tag Lib") totalTags.push(parseFloat(result.time));
-            if(result.title==="Delivery API") totalApis.push(parseFloat(result.time));
-            if(result.title==="Edge Server API") totalApis.push(parseFloat(result.time));
+            if(result.title === TAG_LIB_TITLE) totalTags.push(parseFloat(result.time));
+            if(result.title === TARGET_API_TITLE) totalApis.push(parseFloat(result.time));
+            if(result.title === EDGE_API_TITLE) totalApis.push(parseFloat(result.time));
         });
         $(el).html(
-            "Tag: "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateMedian(totalTags).toFixed(2)+"</span>" +
-            "<br/><br/>API: "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateMedian(totalApis).toFixed(2) +"</span>"
+            "Tag: "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalTags).toFixed(2)+"</span>" +
+            "<br/><br/>API: "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(2) +"</span>"
             );
     }
 }
@@ -101,27 +106,17 @@ function clearObject(key) {
     const el = document.querySelector("body > header > div > div > div > p");
     if(el){ $(el).html(""); }
 }
-function calculateMedian(arr) {
+function calculateAverage(arr) {
     if (!Array.isArray(arr) || arr.length === 0) {
         console.error("Input must be a non-empty array.");
         return 0;
     }
-    // First, sort the array in ascending order
-    const sortedArr = arr.slice().sort((a, b) => a - b);
-    // Calculate the median
-    const middleIndex = Math.floor(sortedArr.length / 2);
-    if (sortedArr.length % 2 === 0) {
-        // If even, median is the average of the two middle numbers
-        return (sortedArr[middleIndex - 1] + sortedArr[middleIndex]) / 2;
-    } else {
-        // If odd, median is the middle number
-        return sortedArr[middleIndex];
-    }
+    const sum = arr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);// Calculate the sum of all elements in the array
+    const average = sum / arr.length;// Calculate the average
+    return average;
 }
 
 (() => {
-    //setTimeout(()=>{
-    const results = readObject('myPerformanceTest')
-    displayResults(results);
-    //},2000);
+ const results = readObject(PERF_STORAGE_NAME);
+ displayResults(results);
 })();
