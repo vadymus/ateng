@@ -44,10 +44,17 @@ function saveAndDisplayResult(val){
     console.log(`new result to be stored: ${newResults}`);
     storeObject('myPerformanceTest', newResults);
 
+    displayResults(newResults);
+}
+
+function displayResults(results){
     const el = document.querySelector("body > header > div > div > div > p");
-    if(el && typeof newResults === "object"){
-        //if(el.children.length === 0){ el.innerHTML = ""; }//empty
-        $(el).html("<div>"+JSON.stringify(newResults)+"</div>");
+    if(el && typeof results === "object"){
+        let html = '';
+        results.forEach((result)=>{
+            html += `<div>${result.title}: ${result.time} ms</div>`;
+        });
+        $(el).html(html);
     }
 }
 
@@ -87,15 +94,8 @@ function clearObject(key) {
 }
 
 (() => {
-
-    setTimeout(()=>{
-        const results = readObject('myPerformanceTest')
-
-        const el = document.querySelector("body > header > div > div > div > p");
-        if(el && results){
-            if(el.children.length === 0){ el.innerHTML = ""; }//empty
-            $(el).append("<div>"+JSON.stringify(results)+"</div>");
-        }
-    },2000);
-
+    //setTimeout(()=>{
+    const results = readObject('myPerformanceTest')
+    displayResults(results);
+    //},2000);
 })();
