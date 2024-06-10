@@ -46,8 +46,8 @@ function saveAndDisplayResult(val){
 
     const el = document.querySelector("body > header > div > div > div > p");
     if(el && typeof newResults === "object"){
-        if(el.children.length === 0){ el.innerHTML = ""; }//empty
-        $(el).append("<div>"+JSON.stringify(newResults)+"</div>");
+        //if(el.children.length === 0){ el.innerHTML = ""; }//empty
+        $(el).html("<div>"+JSON.stringify(newResults)+"</div>");
     }
 }
 
