@@ -55,13 +55,13 @@ function displayResults(results){
         let totalApis = [];
         results.forEach((result)=>{
             //html += `<td>${result.title}: ${result.time} ms</td>`;
-            if(result.title==="Tag Lib") totalTags.push(result.time);
-            if(result.title==="Delivery API") totalApis.push(result.time);
-            if(result.title==="Edge Server API") totalApis.push(result.time);
+            if(result.title==="Tag Lib") totalTags.push(parseFloat(result.time));
+            if(result.title==="Delivery API") totalApis.push(parseFloat(result.time));
+            if(result.title==="Edge Server API") totalApis.push(parseFloat(result.time));
         });
         $(el).html(
             "Tag: "+totalTags.join("+")+" = " + calculateMedian(totalTags) +
-            "API: "+totalApis.join("+")+" = " + calculateMedian(totalApis) 
+            "<br/><br/>API: "+totalApis.join("+")+" = " + calculateMedian(totalApis) 
             );
     }
 }
