@@ -91,7 +91,7 @@ function clearObject(key) {
         const el = document.querySelector("body > header > div > div > div > p");
         if(el){
             if(el.children.length === 0){ el.innerHTML = ""; }//empty
-            $(el).append("<div>"+JSON.parse(newResults)+"</div>");
+            $(el).append("<div>"+JSON.parse(results)+"</div>");
         }
     },2000);
 
