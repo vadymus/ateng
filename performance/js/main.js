@@ -12,23 +12,23 @@ function takeMeasurement() {
 
     if(typeof adobe === "object" && typeof adobe.target === "object")
         resources = [
-            {'Tag Lib': '/launch-39eb5d49edd5-development.min.js'},
-            {'Delivery API', '.tt.omtrdc.net'}
+            {title: 'Tag Lib', url: '/launch-39eb5d49edd5-development.min.js'},
+            {title: 'Delivery API', url: '.tt.omtrdc.net'}
         ];
     else if(typeof alloy === "function")
         resources = [
-            {'Tag Lib': '/launch-c1f237bf3c43-development.min.js'},
-            {'Delivery API', 'https://edge.adobedc.net/ee/va6/v1/interact'}
+            {title: 'Tag Lib', url: '/launch-c1f237bf3c43-development.min.js'},
+            {title: 'Delivery API', url: 'https://edge.adobedc.net/ee/va6/v1/interact'}
         ];
 
     resources.forEach((resource)=>{
         const resourceEntries = performance.getEntriesByType('resource');// Get all resource performance entries        
-        const matchingEntries = resourceEntries.filter(entry => entry.name.indexOf(url) !== -1 );// Filter entries by the specified URL
+        const matchingEntries = resourceEntries.filter(entry => entry.name.indexOf(resource.url) !== -1 );// Filter entries by the specified URL
         if (matchingEntries.length > 0) {
             const entry = matchingEntries[0];
             const totalTime = entry.responseEnd - entry.startTime;
             console.log(`Total time to load ${title}: ${totalTime.toFixed(2)} ms`);
-            saveAndDisplayResult({title: title, time: totalTime.toFixed(2)})
+            saveAndDisplayResult({title: resource.title, time: totalTime.toFixed(2)})
         } else {
             console.log(`No performance entry found for URL: ${url}`);
         }
