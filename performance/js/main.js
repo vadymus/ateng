@@ -102,7 +102,8 @@ function clearObject(key) {
 }
 function calculateMedian(arr) {
     if (!Array.isArray(arr) || arr.length === 0) {
-        throw new Error("Input must be a non-empty array.");
+        console.error("Input must be a non-empty array.");
+        return 0;
     }
     // First, sort the array in ascending order
     const sortedArr = arr.slice().sort((a, b) => a - b);
