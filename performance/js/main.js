@@ -18,7 +18,7 @@ function takeMeasurement() {
     else if(typeof alloy === "function")
         resources = [
             {title: 'Tag Lib', url: '/launch-c1f237bf3c43-development.min.js'},
-            {title: 'Delivery API', url: 'https://edge.adobedc.net/ee/va6/v1/interact'}
+            {title: 'Edge Server API', url: 'https://edge.adobedc.net/ee/va6/v1/interact'}
         ];
 
     resources.forEach((resource)=>{
@@ -50,11 +50,19 @@ function saveAndDisplayResult(val){
 function displayResults(results){
     const el = document.querySelector("body > header > div > div > div > p");
     if(el && typeof results === "object"){
-        let html = '';
+        //let html = '';
+        let totalTags = [];
+        let totalApis = [];
         results.forEach((result)=>{
-            html += `<td>${result.title}: ${result.time} ms</td>`;
+            //html += `<td>${result.title}: ${result.time} ms</td>`;
+            if(result.title==="Tag Lib") totalTags.push(result.time);
+            if(result.title==="Delivery API") totalApis.push(result.time);
+            if(result.title==="Edge Server API") totalApis.push(result.time);
         });
-        $(el).html("<table class='table table-sm'><tr>"+html+"</tr></table>");
+        $(el).html(
+            "Tag: "+totalTags.join("+")+" = "  calculateMedian(totalTags) +
+            "API: "+totalApis.join("+")+" = "  calculateMedian(totalApis) 
+            );
     }
 }
 
@@ -91,6 +99,22 @@ function clearObject(key) {
     }
     const el = document.querySelector("body > header > div > div > div > p");
     if(el){ $(el).html(""); }
+}
+function calculateMedian(arr) {
+    if (!Array.isArray(arr) || arr.length === 0) {
+        throw new Error("Input must be a non-empty array.");
+    }
+    // First, sort the array in ascending order
+    const sortedArr = arr.slice().sort((a, b) => a - b);
+    // Calculate the median
+    const middleIndex = Math.floor(sortedArr.length / 2);
+    if (sortedArr.length % 2 === 0) {
+        // If even, median is the average of the two middle numbers
+        return (sortedArr[middleIndex - 1] + sortedArr[middleIndex]) / 2;
+    } else {
+        // If odd, median is the middle number
+        return sortedArr[middleIndex];
+    }
 }
 
 (() => {
