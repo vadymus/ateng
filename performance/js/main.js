@@ -89,7 +89,7 @@ function clearObject(key) {
         const results = readObject('myPerformanceTest')
 
         const el = document.querySelector("body > header > div > div > div > p");
-        if(el && typeof results === "object"){
+        if(el && results){
             if(el.children.length === 0){ el.innerHTML = ""; }//empty
             $(el).append("<div>"+JSON.stringify(results)+"</div>");
         }
