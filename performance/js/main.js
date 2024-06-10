@@ -1,5 +1,6 @@
 function startPerformanceTest(){
     takeMeasurement();
+    window.location.reload();
 }
 
 function clearPerformanceTest(){
