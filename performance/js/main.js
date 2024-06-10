@@ -82,6 +82,8 @@ function clearObject(key) {
     } else {
         console.log(`No object found under key: ${key} to clear.`);
     }
+    const el = document.querySelector("body > header > div > div > div > p");
+    if(el){ $(el).html(""); }
 }
 
 (() => {
