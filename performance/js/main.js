@@ -41,6 +41,7 @@ function saveAndDisplayResult(val){
     const oldResults = readObject('myPerformanceTest');
     const newResults = (oldResults) ? oldResults.push(val) : [val];
 
+    console.log(`new result to be stored: ${newResults}`);
     storeObject('myPerformanceTest', newResults);
 
     const el = document.querySelector("body > header > div > div > div > p");
@@ -56,7 +57,7 @@ function storeObject(key, obj) {
         localStorage.setItem(key, jsonString);
         console.log(`Object stored under key: ${key}`);
     } else {
-        console.error("The value to store is not an object.");
+        console.error("The value to store is not an object.", obj);
     }
 }
 function readObject(key) {
