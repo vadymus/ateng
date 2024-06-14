@@ -117,6 +117,23 @@ function calculateAverage(arr) {
 }
 
 (() => {
+
+ document.addEventListener("DOMContentLoaded", function () {
+    const currentUrl = window.location.pathname;
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+    navLinks.forEach(link => {
+        const linkUrl = new URL(link.href);
+        if (linkUrl.pathname === currentUrl) {
+            link.classList.add('active');
+            const parentDropdown = link.closest('.dropdown-menu');
+            if (parentDropdown) {
+                parentDropdown.previousElementSibling.classList.add('active');
+            }
+        }
+    });
+ });
+
  const results = readObject(PERF_STORAGE_NAME);
  displayResults(results);
 })();

@@ -9,19 +9,6 @@
         <link rel="preconnect" href="https://assets.adobedtm.com">
         <link rel="preconnect" href="https://edge.adobedc.net">
         <link href="../css/styles.css" rel="stylesheet" />
-        <script>
-            // if URL contains prehiding=false, then disable pre-hiding
-            if (window.location.href.indexOf("prehiding=false")!==-1) {
-               //window.targetGlobalSettings = {"bodyHidingEnabled": false}
-               document.addEventListener("DOMContentLoaded", (event) => {
-                  document.querySelector("#navbarResponsive > ul > li:nth-child(5) > a").classList.remove("active");
-               });
-            }else{
-               document.addEventListener("DOMContentLoaded", (event) => {
-                  document.querySelector("#navbarResponsive > ul > li:nth-child(6) > a").classList.remove("active");
-               });
-            }
-        </script>
         <script src="https://assets.adobedtm.com/164e49a27fff/f9672c0a4e61/launch-c1f237bf3c43-development.min.js"></script>
     </head>
     <body>
@@ -32,15 +19,71 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="../at-sync">AT Sync</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../at-sync?prehiding=false">AT Sync <sup>No-Hide</sup></a></li>
-                        <li class="nav-item"><a class="nav-link" href="../at-async">AT Async</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../at-async?prehiding=false">AT Async <sup>No-Hide</sup></a></li>
+                        <!-- AT Sync Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="atSyncDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                AT Sync
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="atSyncDropdown">
+                                <a class="dropdown-item" href="../at-sync">AT Sync</a>
+                                <a class="dropdown-item" href="../at-sync?prehiding=false">AT Sync <sup>No-Hide</sup></a>
+                            </div>
+                        </li>
 
-                        <li class="nav-item"><a class="nav-link active" href="../websdk-sync">Web SDK Sync</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="../websdk-sync?prehiding=false">Web SDK Sync <sup>No-Hide</sup></a></li>
-                        <li class="nav-item"><a class="nav-link" href="../websdk-async">Web SDK Async</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../websdk-async?prehiding=false">Web SDK Async <sup>No-Hide</sup></a></li>
+                        <!-- AT Async Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="atAsyncDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                AT Async
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="atAsyncDropdown">
+                                <a class="dropdown-item" href="../at-async">AT Async</a>
+                                <a class="dropdown-item" href="../at-async?prehiding=false">AT Async <sup>No-Hide</sup></a>
+                            </div>
+                        </li>
+
+                        <!-- Web SDK Sync Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="webSdkSyncDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Web SDK Sync
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="webSdkSyncDropdown">
+                                <a class="dropdown-item" href="../websdk-sync">Web SDK Sync</a>
+                                <a class="dropdown-item" href="../websdk-sync?prehiding=false">Web SDK Sync <sup>No-Hide</sup></a>
+                            </div>
+                        </li>
+
+                        <!-- Web SDK Async Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="webSdkAsyncDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Web SDK Async
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="webSdkAsyncDropdown">
+                                <a class="dropdown-item" href="../websdk-async">Web SDK Async</a>
+                                <a class="dropdown-item" href="../websdk-async?prehiding=false">Web SDK Async <sup>No-Hide</sup></a>
+                            </div>
+                        </li>
+
+                        <!-- Alloy Sync Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="alloySyncDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Alloy Sync
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="alloySyncDropdown">
+                                <a class="dropdown-item" href="../alloy-sync">Alloy Sync</a>
+                                <a class="dropdown-item" href="../alloy-sync?prehiding=false">Alloy Sync <sup>No-Hide</sup></a>
+                            </div>
+                        </li>
+
+                        <!-- Alloy Async Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="alloyAsyncDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Alloy Async
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="alloyAsyncDropdown">
+                                <a class="dropdown-item" href="../alloy-async">Alloy Async</a>
+                                <a class="dropdown-item" href="../alloy-async?prehiding=false">Alloy Async <sup>No-Hide</sup></a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
