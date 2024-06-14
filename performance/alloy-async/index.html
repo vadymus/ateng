@@ -31,6 +31,13 @@
               "edgeConfigId": "595ea49c-37f9-47c1-8dbd-e066f2da304f",
               "orgId":"EB9CAE8B56E003697F000101@AdobeOrg"
             });
+            document.addEventListener("DOMContentLoaded", function () {
+                alloy("sendEvent", {
+                  renderDecisions: true,
+                  xmd: {},
+                  data: {}
+                });
+            });
         </script>
     </head>
     <body>
