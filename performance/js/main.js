@@ -28,7 +28,7 @@ function takeMeasurement() {
         ];
     else if(typeof alloy === "function" && typeof _satellite === "undefined")
         resources = [
-            {title: TAG_LIB_TITLE, url: '/alloy.2.11.4.js'},
+            {title: TAG_LIB_TITLE, url: '/alloy.2.20.0.min.js'},
             {title: EDGE_API_TITLE, url: 'https://edge.adobedc.net/ee/va6/v1/interact'}
         ];
 
