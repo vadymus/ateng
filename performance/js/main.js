@@ -1,7 +1,7 @@
 const PERF_STORAGE_NAME = "myPerformanceTest";
-const TAG_LIB_TITLE = "Tag Lib";
+const TAG_LIB_TITLE = "JS Lib";
 const TARGET_API_TITLE = "Delivery API";
-const EDGE_API_TITLE = "Edge Server API";
+const EDGE_API_TITLE = "Edge API";
 
 function startPerformanceTest(){
     takeMeasurement();
@@ -21,9 +21,14 @@ function takeMeasurement() {
             {title: TAG_LIB_TITLE, url: '/launch-39eb5d49edd5-development.min.js'},
             {title: TARGET_API_TITLE, url: '.tt.omtrdc.net'}
         ];
-    else if(typeof alloy === "function")
+    else if(typeof alloy === "function" && typeof _satellite === "object")
         resources = [
             {title: TAG_LIB_TITLE, url: '/launch-c1f237bf3c43-development.min.js'},
+            {title: EDGE_API_TITLE, url: 'https://edge.adobedc.net/ee/va6/v1/interact'}
+        ];
+    else if(typeof alloy === "function" && typeof _satellite === "undefined")
+        resources = [
+            {title: TAG_LIB_TITLE, url: '/alloy.2.11.4.js'},
             {title: EDGE_API_TITLE, url: 'https://edge.adobedc.net/ee/va6/v1/interact'}
         ];
 
