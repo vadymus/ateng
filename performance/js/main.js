@@ -61,7 +61,7 @@ function saveAndDisplayResult(val){
 }
 
 function displayResults(results){
-    const el = document.querySelector("body > header > div > div > div > p");
+    const el = document.querySelector("body > header > div > div > div > #metrics");
     if(el && results && typeof results === "object"){
         //let html = '';
         let totalTags = [];
@@ -76,6 +76,14 @@ function displayResults(results){
             "Tag: "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalTags).toFixed(2)+"</span>" +
             "<br/><br/>API: "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(2) +"</span>"
             );
+    }
+}
+
+function displayWebVitals(vital){
+    console.log("web vital", vital);
+    const el = document.querySelector("body > header > div > div > div > #vitals");
+    if (el) {
+        $(el).append("<span class='badge badge-success'>"+vital.name+": "+vital.value+" ("+vital.rating+")</span>");
     }
 }
 
@@ -140,12 +148,12 @@ function calculateAverage(arr) {
         }
     });
     //core
-    webVitals.onCLS(console.log);
-    webVitals.onINP(console.log);
-    webVitals.onLCP(console.log);
+    webVitals.onCLS(displayWebVitals);
+    webVitals.onINP(displayWebVitals);
+    webVitals.onLCP(displayWebVitals);
     //other
-    webVitals.onFCP(console.log);
-    webVitals.onTTFB(console.log);
+    webVitals.onFCP(displayWebVitals);
+    webVitals.onTTFB(displayWebVitals);
     //deprecated
     //webVitals.onFID(console.log);
 
