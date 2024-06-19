@@ -118,7 +118,7 @@ function clearObject(key) {
     } else {
         console.log(`No object found under key: ${key} to clear.`);
     }
-    const el = document.querySelector("body > header > div > div > div > p");
+    const el = document.querySelector("body > header > div > div > div > #metrics");
     if(el){ $(el).html(""); }
 }
 function calculateAverage(arr) {
