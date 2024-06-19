@@ -83,7 +83,7 @@ function displayWebVitals(vital){
     console.log("web vital", vital);
     const el = document.querySelector("body > header > div > div > div > #vitals");
     if (el) {
-        $(el).append("<span class='badge badge-success'>"+vital.name+": "+vital.value+" ("+vital.rating+")</span>");
+        $(el).append("<span class='badge badge-success'>"+vital.name+": "+vital.value.toFixed(0)+" ("+vital.rating+")</span> &nbsp; ");
     }
 }
 
