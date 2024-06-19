@@ -74,7 +74,7 @@ function displayResults(results){
         });
         $(el).html(
             "Tag: "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalTags).toFixed(2)+"</span>" +
-            "<br/><br/>API: "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(2) +"</span>"
+            "<br/>API: "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(2) +"</span><br/>"
             );
     }
 }
