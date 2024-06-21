@@ -4,6 +4,9 @@ const PERF_STORAGE_NAME = "myPerformanceTest";
 const TAG_LIB_TITLE = "JS Lib";
 const TARGET_API_TITLE = "Delivery API";
 const EDGE_API_TITLE = "Edge API";
+const TOOLTIP_LIB = "JavaScript code library that delivers at.js, alloy.js (Web SDK). For example, Data Collection Tag library.";
+const TOOLTIP_API = "API call to Adobe edge to retrieve personalization. For example, send event to Edge Server API";
+
 
 function startPerformanceTest(){
     takeMeasurement();
@@ -73,9 +76,10 @@ function displayResults(results){
             if(result.title === EDGE_API_TITLE) totalApis.push(parseFloat(result.time));
         });
         $(el).html(
-            "Tag: "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalTags).toFixed(2)+"</span>" +
-            "<br/>API: "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(2) +"</span><br/>"
+            "Library"+getTooltip(TOOLTIP_LIB)+": "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalTags).toFixed(2)+"</span>" +
+            "<br/>API"+getTooltip(TOOLTIP_API)+": "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(2) +"</span><br/>"
             );
+        $('[data-toggle="tooltip"]').tooltip();
     }
 }
 
@@ -84,7 +88,13 @@ function displayWebVitals(vital){
     const el = document.querySelector("body > header > div > div > div > #vitals");
     if (el) {
         $(el).append("<span class='badge badge-success'>"+vital.name+": "+vital.value.toFixed(0)+" ("+vital.rating+")</span> &nbsp; ");
+        
+        
     }
+}
+
+function getTooltip(msg){
+    return '<sup><i class="bi bi-info-circle-fill text-info" data-toggle="tooltip" title="'+msg+'"></i></sup>';
 }
 
 function storeObject(key, obj) {
@@ -161,4 +171,11 @@ function calculateAverage(arr) {
 
  const results = readObject(PERF_STORAGE_NAME);
  displayResults(results);
+
+ 
+
 })();
+
+// $(function () {
+//   $('[data-toggle="tooltip"]').tooltip();
+// })
