@@ -10011,3 +10011,7 @@ h3 {
 p.lead div{
   color: yellow;
 }
+
+sup i.text-info {
+  color: yellow;
+}

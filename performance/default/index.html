@@ -117,7 +117,7 @@
                 <div class="col-md-8 mb-5">
                     <h2>About the Results</h2>
                     <hr />
-                    <p>The performance results are extracted from Performance API. When the button is clicked to take performance measurement, two network resources are checked: one for library code (Data Collection Tag, at.js, Web SDK/alloy.js) and one for their API call to load personalization. Measurements represent network <strong>start</strong> and network <strong>end</strong> time in milliseconds. Their average number is highlighted for convenience. All results are stored in local storage - you can clear them when going to the next page. See more details in <a href="../js/main.js">main.js</a>.</p>
+                    <p>The performance results are extracted from Performance API. When the `Run Performance Test` button is clicked, two network resources are checked: one for library code (Data Collection Tag, at.js, alloy.js (Web SDK)) and one for their API call to load personalization. Measurements represent the difference of network <strong>start</strong> and network <strong>end</strong> time in milliseconds. Their average number is highlighted for convenience. All results are stored in local storage - you can clear them when going to the next page. Keep browser's Dev Tools closed for cleaner results. See code details in <a href="../js/main.js">main.js</a>.</p>
                     <a class="btn btn-primary btn-lg" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Performance">Performance API »</a>
                 </div>
                 <div class="col-md-4 mb-5">
@@ -128,6 +128,7 @@
                         <li>No At.js</li>
                         <li>No Web SDK / Alloy.js</li>
                         <li>No API Call for Personalization</li>
+                        <li>Web Vitals</li>
                     </ul>
                 </div>
             </div>

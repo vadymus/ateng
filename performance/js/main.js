@@ -76,8 +76,8 @@ function displayResults(results){
             if(result.title === EDGE_API_TITLE) totalApis.push(parseFloat(result.time));
         });
         $(el).html(
-            "Library"+getTooltip(TOOLTIP_LIB)+": "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalTags).toFixed(2)+"</span>" +
-            "<br/>API"+getTooltip(TOOLTIP_API)+": "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(2) +"</span><br/>"
+            "Library "+getTooltip(TOOLTIP_LIB)+": "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalTags).toFixed(0)+" ms</span>" +
+            "<br/>API "+getTooltip(TOOLTIP_API)+": "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(0) +" ms</span><br/>"
             );
         $('[data-toggle="tooltip"]').tooltip();
     }
@@ -87,9 +87,8 @@ function displayWebVitals(vital){
     console.log("web vital", vital);
     const el = document.querySelector("body > header > div > div > div > #vitals");
     if (el) {
-        $(el).append("<span class='badge badge-success'>"+vital.name+": "+vital.value.toFixed(0)+" ("+vital.rating+")</span> &nbsp; ");
-        
-        
+        const badgeType = (vital.rating==="good") ? "badge-success" : "badge-warning";
+        $(el).append("<span class='badge "+badgeType+"'>"+vital.name+": "+vital.value.toFixed(0)+" ("+vital.rating+")</span> &nbsp; ");
     }
 }
 
@@ -172,10 +171,5 @@ function calculateAverage(arr) {
  const results = readObject(PERF_STORAGE_NAME);
  displayResults(results);
 
- 
-
 })();
 
-// $(function () {
-//   $('[data-toggle="tooltip"]').tooltip();
-// })

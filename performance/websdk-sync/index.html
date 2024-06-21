@@ -99,7 +99,7 @@
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
                         <h1 class="display-4 text-white mt-5 mb-2">Adobe Experience Platform Web SDK is Loaded Synchronously</h1>
-                        <a class="btn btn-secondary btn-lg" href="javascript:void(0)" onclick="startPerformanceTest()">Take Performance Measurement »</a>
+                        <a class="btn btn-danger btn-lg" href="javascript:void(0)" onclick="startPerformanceTest()">Run Performance Test »</a>
                         <a class="btn btn-light btn-lg" href="javascript:void(0)" onclick="clearPerformanceTest()">Clear Results »</a>
                         <p class="lead mb-1 text-white-50 mt-3" id="metrics">Click the button to begin page performance tests. The page will refresh to take another measurement.</p>
                         <p class="lead mb-3 text-white-50" id="vitals"></p>
@@ -113,7 +113,7 @@
                 <div class="col-md-8 mb-5">
                     <h2>About the Results</h2>
                     <hr />
-                    <p>The performance results are extracted from Performance API. When the button is clicked to take performance measurement, two network resources are checked: one for library code (Data Collection Tag, at.js, Web SDK/alloy.js) and one for their API call to load personalization. Measurements represent network <strong>start</strong> and network <strong>end</strong> time in milliseconds. Their average number is highlighted for convenience. All results are stored in local storage - you can clear them when going to the next page. See more details in <a href="../js/main.js">main.js</a>.</p>
+                    <p>The performance results are extracted from Performance API. When the `Run Performance Test` button is clicked, two network resources are checked: one for library code (Data Collection Tag, at.js, alloy.js (Web SDK)) and one for their API call to load personalization. Measurements represent the difference of network <strong>start</strong> and network <strong>end</strong> time in milliseconds. Their average number is highlighted for convenience. All results are stored in local storage - you can clear them when going to the next page. Keep browser's Dev Tools closed for cleaner results. See code details in <a href="../js/main.js">main.js</a>.</p>
                     <a class="btn btn-primary btn-lg" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Performance">Performance API »</a>
                 </div>
                 <div class="col-md-4 mb-5">
@@ -123,6 +123,7 @@
                         <li>Data Collection Tag Library (Synchronously Loaded)</li>
                         <li>Web SDK with Target Datastream</li>
                         <li>`Send` Event to Experience Platform Edge Server API</li>
+                        <li>Web Vitals</li>
                     </ul>
                 </div>
             </div>
