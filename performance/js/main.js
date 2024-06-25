@@ -214,7 +214,8 @@ function calculateAverage(arr) {
         const linkUrl = new URL(link.href);
         if (linkUrl.pathname+linkUrl.search === currentUrl+queryStr) {
             link.classList.add('active');
-            //link.parentNode.parentNode.firstChild.classList.add('active');
+            const drowdownParentLink = link.parentNode.parentNode.querySelector("a.nav-link.dropdown-toggle");
+            if(drowdownParentLink) drowdownParentLink.classList.add('active');
         }
     });
     //core
