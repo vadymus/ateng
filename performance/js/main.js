@@ -207,16 +207,14 @@ function calculateAverage(arr) {
 
  document.addEventListener("DOMContentLoaded", function () {
     const currentUrl = window.location.pathname;
-    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const queryStr = window.location.search;
+    const navLinks = document.querySelectorAll('.dropdown-menu .dropdown-item');
 
     navLinks.forEach(link => {
         const linkUrl = new URL(link.href);
-        if (linkUrl.pathname === currentUrl) {
+        if (linkUrl.pathname+linkUrl.search === currentUrl+queryStr) {
             link.classList.add('active');
-            const parentDropdown = link.closest('.dropdown-menu');
-            if (parentDropdown) {
-                parentDropdown.previousElementSibling.classList.add('active');
-            }
+            //link.parentNode.parentNode.firstChild.classList.add('active');
         }
     });
     //core
