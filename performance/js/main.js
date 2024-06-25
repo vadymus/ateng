@@ -7,10 +7,11 @@ const EDGE_API_TITLE = "Edge API";
 const TOOLTIP_LIB = "JavaScript code library that delivers at.js, alloy.js (Web SDK). For example, Data Collection Tag library.";
 const TOOLTIP_API = "API call to Adobe edge to retrieve personalization. For example, send event to Edge Server API";
 
-
 function startPerformanceTest(){
     takeMeasurement();
-    window.location.reload();
+    setTimeout(()=>{
+        window.location.reload();
+    }, 200);
 }
 
 function clearPerformanceTest(){
@@ -53,7 +54,6 @@ function takeMeasurement() {
 }
 
 function saveAndDisplayResult(val){
-
     const oldResults = readObject(PERF_STORAGE_NAME);
     const newResults = (oldResults) ? oldResults.concat([val]) : [val];
 
@@ -63,33 +63,96 @@ function saveAndDisplayResult(val){
     displayResults(newResults);
 }
 
+function getBadgeColor(title, value){
+    let badgeType = ""
+    switch(title){
+        case TAG_LIB_TITLE:
+            if(value <= 500) badgeType = "badge-success";
+            else badgeType = "badge-warning";
+            break;
+        case TARGET_API_TITLE:  
+            if(value <= 500) badgeType = "badge-success";
+            else badgeType = "badge-warning";
+            break;
+        case EDGE_API_TITLE:
+            if(value <= 500) badgeType = "badge-success";
+            else badgeType = "badge-warning";
+            break;
+        case "CLS":
+            if(value <= 0.1) badgeType = "badge-success";
+            else if(value <= 0.25) badgeType = "badge-warning";
+            else badgeType = "badge-danger";
+            break;
+        case "INP":
+            if(value <= 200) badgeType = "badge-success";
+            else if(value <= 500) badgeType = "badge-warning";
+            else badgeType = "badge-danger";
+            break;
+        case "LCP":
+            if(value <= 2500) badgeType = "badge-success";
+            else if(value <= 4000) badgeType = "badge-warning";
+            else badgeType = "badge-danger";
+            break;
+        case "FCP":
+            if(value <= 1800) badgeType = "badge-success";
+            else if(value <= 3000) badgeType = "badge-warning";
+            else badgeType = "badge-danger";
+            break;
+        case "TTFB":
+            if(value <= 800) badgeType = "badge-success";
+            else if(value <= 1800) badgeType = "badge-warning";
+            else badgeType = "badge-danger";
+            break;
+    }
+    return badgeType;
+}
+
 function displayResults(results){
-    const el = document.querySelector("body > header > div > div > div > #metrics");
-    if(el && results && typeof results === "object"){
-        //let html = '';
-        let totalTags = [];
-        let totalApis = [];
+    if(results && typeof results === "object"){
+        let totalTags = [], totalApis = [], totalCLS = [], totalINP = [], totalLCP = [], totalFCP = [], totalTTFB = [];
         results.forEach((result)=>{
-            //html += `<td>${result.title}: ${result.time} ms</td>`;
-            if(result.title === TAG_LIB_TITLE) totalTags.push(parseFloat(result.time));
-            if(result.title === TARGET_API_TITLE) totalApis.push(parseFloat(result.time));
-            if(result.title === EDGE_API_TITLE) totalApis.push(parseFloat(result.time));
+            switch(result.title){
+                case TAG_LIB_TITLE:     totalTags.push(parseFloat(result.time)); break;
+                case TARGET_API_TITLE:  totalApis.push(parseFloat(result.time)); break;
+                case EDGE_API_TITLE:    totalApis.push(parseFloat(result.time)); break;
+                case "CLS":  totalCLS.push(parseFloat(result.time)); break;
+                case "INP":  totalINP.push(parseFloat(result.time)); break;
+                case "LCP":  totalLCP.push(parseFloat(result.time)); break;
+                case "FCP":  totalFCP.push(parseFloat(result.time)); break;
+                case "TTFB": totalTTFB.push(parseFloat(result.time)); break;
+            }
         });
-        $(el).html(
-            "Library "+getTooltip(TOOLTIP_LIB)+": "+totalTags.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalTags).toFixed(0)+" ms</span>" +
-            "<br/>API "+getTooltip(TOOLTIP_API)+": "+totalApis.join("+")+" = <span class='badge badge-success'>" + calculateAverage(totalApis).toFixed(0) +" ms</span><br/>"
-            );
+
+        let html1 = "";
+        if(totalTags.length>0)
+            html1 += "<div>Library "+getTooltip(TOOLTIP_LIB)+": <span class='badge "+getBadgeColor(result.title, calculateAverage(totalTags).toFixed(0))+"'>" + calculateAverage(totalTags).toFixed(0)+" ms</span> ("+totalTags.join("+")+")</div>";
+        if(totalApis.length>0)
+            html1 += "<div>API "+getTooltip(TOOLTIP_API)+": <span class='badge "+getBadgeColor(result.title, calculateAverage(totalApis).toFixed(0))+"'>" + calculateAverage(totalApis).toFixed(0) +" ms</span> ("+totalApis.join("+")+")</div>";
+        $("body > header > div > div > div > #metrics").html(html1);
+
+        let html2 = "";
+        if(totalCLS.length>0)
+            html2 += "<div>CLS "+getTooltip("Cumulative Layout Shift")+": <span class='badge "+getBadgeColor("CLS", calculateAverage(totalCLS).toFixed(0))+"'>" + calculateAverage(totalCLS).toFixed(0)+"</span> ("+totalCLS.join("+")+")</div>";
+        if(totalINP.length>0)
+            html2 += "<div>INP "+getTooltip("Interaction to Next Paint")+": <span class='badge "+getBadgeColor("INP", calculateAverage(totalINP).toFixed(0))+"'>" + calculateAverage(totalINP).toFixed(0)+"</span> ("+totalINP.join("+")+")</div>";
+        if(totalLCP.length>0)
+            html2 += "<div>LCP "+getTooltip("Largest Contentful Paint")+": <span class='badge "+getBadgeColor("LCP", calculateAverage(totalLCP).toFixed(0))+"'>" + calculateAverage(totalLCP).toFixed(0)+"</span> ("+totalLCP.join("+")+")</div>";
+        if(totalFCP.length>0)
+            html2 += "<div>FCP "+getTooltip("First Contentful Paint")+": <span class='badge "+getBadgeColor("FCP", calculateAverage(totalFCP).toFixed(0))+"'>" + calculateAverage(totalFCP).toFixed(0)+"</span> ("+totalFCP.join("+")+")</div>";
+        if(totalTTFB.length>0)
+            html2 += "<div>TTFB "+getTooltip("Time to First Byte")+": <span class='badge "+getBadgeColor("TTFB", calculateAverage(totalTTFB).toFixed(0))+"'>" + calculateAverage(totalTTFB).toFixed(0)+"</span> ("+totalTTFB.join("+")+")</div>";
+        
+        const badgeType = "badge-success";//(vital.rating==="good") ? "badge-success" : "badge-warning";
+
+        $("body > header > div > div > div > #vitals").html(html2);
+        
         $('[data-toggle="tooltip"]').tooltip();
     }
 }
 
-function displayWebVitals(vital){
+function handleWebVitals(vital){
+    saveAndDisplayResult({title: vital.name, time: vital.value.toFixed(0)});
     console.log("web vital", vital);
-    const el = document.querySelector("body > header > div > div > div > #vitals");
-    if (el) {
-        const badgeType = (vital.rating==="good") ? "badge-success" : "badge-warning";
-        $(el).append("<span class='badge "+badgeType+"'>"+vital.name+": "+vital.value.toFixed(0)+" ("+vital.rating+")</span> &nbsp; ");
-    }
 }
 
 function getTooltip(msg){
@@ -127,8 +190,8 @@ function clearObject(key) {
     } else {
         console.log(`No object found under key: ${key} to clear.`);
     }
-    const el = document.querySelector("body > header > div > div > div > #metrics");
-    if(el){ $(el).html(""); }
+    $("body > header > div > div > div > #metrics").html("");
+    $("body > header > div > div > div > #vitals").html("");
 }
 function calculateAverage(arr) {
     if (!Array.isArray(arr) || arr.length === 0) {
@@ -157,12 +220,12 @@ function calculateAverage(arr) {
         }
     });
     //core
-    webVitals.onCLS(displayWebVitals);
-    webVitals.onINP(displayWebVitals);
-    webVitals.onLCP(displayWebVitals);
+    webVitals.onCLS(handleWebVitals);
+    webVitals.onINP(handleWebVitals);
+    webVitals.onLCP(handleWebVitals);
     //other
-    webVitals.onFCP(displayWebVitals);
-    webVitals.onTTFB(displayWebVitals);
+    webVitals.onFCP(handleWebVitals);
+    webVitals.onTTFB(handleWebVitals);
     //deprecated
     //webVitals.onFID(console.log);
 
