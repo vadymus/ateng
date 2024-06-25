@@ -151,7 +151,7 @@ function displayResults(results){
 }
 
 function handleWebVitals(vital){
-    saveAndDisplayResult({title: vital.name, time: vital.value.toFixed(0)});
+    saveAndDisplayResult({title: vital.name, time: vital.value.toFixed(2)});
     console.log("web vital", vital);
 }
 
