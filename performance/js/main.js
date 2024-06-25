@@ -125,9 +125,9 @@ function displayResults(results){
 
         let html1 = "";
         if(totalTags.length>0)
-            html1 += "<div>Library "+getTooltip(TOOLTIP_LIB)+": <span class='badge "+getBadgeColor(result.title, calculateAverage(totalTags).toFixed(0))+"'>" + calculateAverage(totalTags).toFixed(0)+" ms</span> ("+totalTags.join("+")+")</div>";
+            html1 += "<div>Library "+getTooltip(TOOLTIP_LIB)+": <span class='badge "+getBadgeColor(TAG_LIB_TITLE, calculateAverage(totalTags).toFixed(0))+"'>" + calculateAverage(totalTags).toFixed(0)+" ms</span> ("+totalTags.join("+")+")</div>";
         if(totalApis.length>0)
-            html1 += "<div>API "+getTooltip(TOOLTIP_API)+": <span class='badge "+getBadgeColor(result.title, calculateAverage(totalApis).toFixed(0))+"'>" + calculateAverage(totalApis).toFixed(0) +" ms</span> ("+totalApis.join("+")+")</div>";
+            html1 += "<div>API "+getTooltip(TOOLTIP_API)+": <span class='badge "+getBadgeColor(EDGE_API_TITLE, calculateAverage(totalApis).toFixed(0))+"'>" + calculateAverage(totalApis).toFixed(0) +" ms</span> ("+totalApis.join("+")+")</div>";
         $("body > header > div > div > div > #metrics").html(html1);
 
         let html2 = "";
