@@ -132,7 +132,7 @@ function displayResults(results){
 
         let html2 = "";
         if(totalCLS.length>0)
-            html2 += "<div>CLS "+getTooltip("Cumulative Layout Shift")+": <span class='badge "+getBadgeColor("CLS", calculateAverage(totalCLS).toFixed(0))+"'>" + calculateAverage(totalCLS).toFixed(0)+"</span> ("+totalCLS.join("+")+")</div>";
+            html2 += "<div>CLS "+getTooltip("Cumulative Layout Shift")+": <span class='badge "+getBadgeColor("CLS", calculateAverage(totalCLS).toFixed(2))+"'>" + calculateAverage(totalCLS).toFixed(2)+"</span> ("+totalCLS.join("+")+")</div>";
         if(totalINP.length>0)
             html2 += "<div>INP "+getTooltip("Interaction to Next Paint")+": <span class='badge "+getBadgeColor("INP", calculateAverage(totalINP).toFixed(0))+"'>" + calculateAverage(totalINP).toFixed(0)+"</span> ("+totalINP.join("+")+")</div>";
         if(totalLCP.length>0)
